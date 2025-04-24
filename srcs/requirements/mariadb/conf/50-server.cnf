@@ -1,0 +1,10 @@
+[mysqld]
+
+# Basic settings
+user = mysql
+datadir = /var/lib/mysql
+socket = /var/run/mysqld/mysqld.sock
+
+# Networking
+bind-address = 0.0.0.0  # Allow connections from any IP address
+port = 3306

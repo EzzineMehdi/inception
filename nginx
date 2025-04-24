@@ -1,0 +1,33 @@
+THIRD
+
+nginx version: nginx/1.22.1
+
+docker run -it -d -p 443:80 -v wordpress:/var/html/www/wordpress --name nginx --network inception debian:stable-20250407 /bin/bash
+
+apt-get update && apt-get install nginx -y && apt-get install -y vim
+
+add wordpress config file
+*********************************************************
+server {
+    listen 80;
+    server_name 127.0.0.1;  # Change this to your domain
+
+    root /var/html/www/wordpress;  # Change this if your WordPress files are elsewhere
+    index index.php index.html index.htm;
+
+    location / {
+        try_files $uri $uri/ /index.php?$args;
+    }
+
+    location ~ \.php$ {
+        include fastcgi_params;
+        fastcgi_pass wordpress:9000;
+        fastcgi_index index.php;
+        fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
+    }
+}
+*********************************************************
+
+ln -s /etc/nginx/sites-available/wordpress /etc/nginx/sites-enabled/
+
+service nginx start

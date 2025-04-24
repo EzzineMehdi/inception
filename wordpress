@@ -1,0 +1,15 @@
+SECOND
+
+docker run -it --name wordpress -d -v wordpress:/var/html/www/wordpress --hostname wordpress --network inception debian:stable-20250407
+
+apt-get update && apt-get install wget -y && apt-get install php8.2-fpm -y && apt-get install php-mysql -y && apt-get install -y mariadb-client
+
+
+wget https://wordpress.org/latest.tar.gz in /var/www/html
+tar -xvzf latest.tar.gz
+cp wp-config-sample.php wp-config.php
+***set data base info in wp-config.php
+
+***in /etc/php/8.2/fpm/pool.d/www.conf listen to 0.0.0.0:9000
+
+service php8.2-fpm starts

@@ -1,0 +1,20 @@
+#!/bin/bash
+
+# Start MariaDB service
+service mariadb start
+
+# Execute SQL commands
+mariadb << EOF
+CREATE DATABASE IF NOT EXISTS $MYSQL_DATABASE;
+# CREATE USER IF NOT EXISTS '$MYSQL_USER'@'wordpress' IDENTIFIED BY '$MYSQL_PASSWORD';
+# GRANT ALL PRIVILEGES ON $MYSQL_DATABASE.* TO '$MYSQL_USER'@'wordpress';
+
+# CREATE USER IF NOT EXISTS '$MYSQL_ADMIN_USER'@'wordpress' IDENTIFIED BY '$MYSQL_ADMIN_PASSWORD';
+# GRANT ALL PRIVILEGES ON *.* TO '$MYSQL_ADMIN_USER'@'wordpress';
+
+FLUSH PRIVILEGES;
+EOF
+
+service mariadb stop
+
+mysqld_safe
