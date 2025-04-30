@@ -2,15 +2,18 @@
 
 wp core download --allow-root
 
-# cp wp-config-sample.php wp-config.php
+wp config create --dbname="$MYSQL_DATABASE" --dbuser="$MYSQL_USER" --dbpass="$MYSQL_PASSWORD" --dbhost="mariadb" --allow-root
 
-# sed -ir "s/database_name_here/$MYSQL_DATABASE/1"  wp-config.php
-# sed -ir "s/username_here/$MYSQL_USER/1"  wp-config.php
-# sed -ir "s/password_here/$MYSQL_PASSWORD/1"  wp-config.php
-# sed -ir "s/localhost/mariadb/1" wp-config.php
 sed -ir "s/listen = \/run\/php\/php8.2-fpm.sock/listen = 0.0.0.0:9000/1" /etc/php/8.2/fpm/pool.d/www.conf
 
-wp config create --dbname="$MYSQL_DATABASE" --dbuser="$MYSQL_USER" --dbpass="$MYSQL_PASSWORD" --dbhost="mariadb" --allow-root
+wp core install \
+  --url="http://127.0.0.1:8000/" \
+  --title="Example Site" \
+  --admin_user=$MYSQL_USER \
+  --admin_password=$MYSQL_PASSWORD \
+  --admin_email=admin@example.com \
+  --skip-email \
+  --allow-root
 
 
 # wp core install --url=localhost --title=title --admin_user=admin --admin_password=admin --admin_email=example@gmail.com --skip-email --allow-root
