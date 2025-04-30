@@ -14,7 +14,7 @@ wp core install \
   --admin_email=admin@example.com \
   --skip-email \
   --allow-root
-
+wp user create user example@example.com --role=subscriber --user_pass=123456 --allow-root
 
 # wp core install --url=localhost --title=title --admin_user=admin --admin_password=admin --admin_email=example@gmail.com --skip-email --allow-root
 # wp core install --url=$DOMAIN_NAME/ --title=$WP_TITLE --admin_user=$WP_ADMIN_USR --admin_password=$WP_ADMIN_PWD --admin_email=$WP_ADMIN_EMAIL --skip-email --allow-root

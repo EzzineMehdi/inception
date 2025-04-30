@@ -5,6 +5,8 @@ server {
     root /var/html/www/wordpress;  # Change this if your WordPress files are elsewhere
     index index.php index.html index.htm;
 
+	ssl_protocols TLSv1.3;
+
     location / {
         try_files $uri $uri/ /index.php?$args;
     }
