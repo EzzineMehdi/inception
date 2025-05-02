@@ -1,6 +1,6 @@
 FROM debian:12
 
-RUN apt-get update && apt-get install -y php8.2-fpm php-mysql mariadb-client curl openssl
+RUN apt-get update && apt-get install -y php8.2-fpm php-mysql mariadb-client curl
 
 WORKDIR /var/html/www/wordpress
 

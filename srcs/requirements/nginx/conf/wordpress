@@ -1,10 +1,12 @@
 server {
-    listen 80;
+    listen 80 ssl;
     server_name 127.0.0.1;  # Change this to your domain
 
     root /var/html/www/wordpress;  # Change this if your WordPress files are elsewhere
     index index.php index.html index.htm;
 
+	ssl_certificate /etc/ssl/certs/nginx-selfsigned.crt;
+	ssl_certificate_key /etc/ssl/private/nginx-selfsigned.key;
 	ssl_protocols TLSv1.3;
 
     location / {
