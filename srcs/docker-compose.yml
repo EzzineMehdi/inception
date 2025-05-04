@@ -21,6 +21,8 @@ services:
     hostname: wordpress
     restart: unless-stopped
     pull_policy: never
+    depends_on:
+      - mariadb
   nginx:
     ports:
       - 8000:443
@@ -31,6 +33,8 @@ services:
     hostname: nginx
     restart: unless-stopped
     pull_policy: never
+    depends_on:
+      - wordpress
 
  
     
