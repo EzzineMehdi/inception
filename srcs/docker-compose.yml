@@ -23,7 +23,7 @@ services:
     pull_policy: never
   nginx:
     ports:
-      - 8000:80
+      - 8000:443
     volumes:
       - wordpress-data:/var/html/www/wordpress
     build: ./requirements/nginx
