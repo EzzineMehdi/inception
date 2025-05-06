@@ -15,7 +15,7 @@ wp config create \
 --dbname="$MYSQL_DATABASE" \
 --dbuser="$MYSQL_USER" \
 --dbpass="$MYSQL_PASSWORD" \
---dbhost="mariadb" \
+--dbhost="mariadb:3306" \
 --allow-root
 
 if ! wp user exists user --allow-root; then
