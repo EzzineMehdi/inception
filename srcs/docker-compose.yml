@@ -35,8 +35,11 @@ services:
     pull_policy: never
     depends_on:
       - wordpress
-
- 
+  redis:
+    build: ./requirements/bonus/redis
+    image: redis:0.0
+    pull_policy: never
+    restart: unless-stopped
     
 volumes:
   mariadb-data:
