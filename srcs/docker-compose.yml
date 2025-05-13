@@ -10,6 +10,7 @@ services:
     hostname: mariadb
     restart: unless-stopped
     pull_policy: never
+    container_name: mariadb
   wordpress:
     build: ./requirements/wordpress
     image: wordpress:0.0
@@ -23,6 +24,7 @@ services:
     pull_policy: never
     depends_on:
       - mariadb
+    container_name: wordpress
   nginx:
     ports:
       - 8000:443
@@ -35,11 +37,15 @@ services:
     pull_policy: never
     depends_on:
       - wordpress
+      - redis
+
+    container_name: nginx
   redis:
     build: ./requirements/bonus/redis
     image: redis:0.0
     pull_policy: never
     restart: unless-stopped
+    container_name: redis
     
 volumes:
   mariadb-data:

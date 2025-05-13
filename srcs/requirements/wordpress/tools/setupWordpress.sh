@@ -22,6 +22,15 @@ if [ ! -f wp-config.php ]; then
 	wp user create user example@example.com \
     --user_pass=123456 \
     --allow-root
+	#bonus
+	wp config  set WP_REDIS_HOST redis --allow-root
+    wp config set WP_REDIS_PORT 6379 --allow-root
+    wp config  set WP_CACHE 'true' --allow-root
+    wp plugin install redis-cache --allow-root
+    wp plugin activate redis-cache --allow-root
+    wp redis enable --allow-root
+
+	
 fi
 
 # if ! wp user exists user --allow-root; then

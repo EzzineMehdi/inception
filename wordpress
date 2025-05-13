@@ -13,3 +13,5 @@ cp wp-config-sample.php wp-config.php
 ***in /etc/php/8.2/fpm/pool.d/www.conf listen to 0.0.0.0:9000
 
 service php8.2-fpm starts
+
+iputils-ping
