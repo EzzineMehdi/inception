@@ -46,6 +46,17 @@ services:
     pull_policy: never
     restart: unless-stopped
     container_name: redis
+  ftp:
+    ports:
+      - 21:21
+      - 20:20
+    build: ./requirements/bonus/ftp
+    image: ftp:0.0
+    pull_policy: never
+    restart: unless-stopped
+    container_name: ftp
+    volumes:
+      - wordpress-data:/var/html/www/wordpress
     
 volumes:
   mariadb-data:
