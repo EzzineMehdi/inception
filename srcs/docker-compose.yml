@@ -48,8 +48,8 @@ services:
     container_name: redis
   ftp:
     ports:
-      - 21:21
-      - 20:20
+      - 8001:21
+      - 8002:20
     build: ./requirements/bonus/ftp
     image: ftp:0.0
     pull_policy: never
