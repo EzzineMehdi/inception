@@ -57,6 +57,14 @@ services:
     container_name: ftp
     volumes:
       - wordpress-data:/var/html/www/wordpress
+  adminer:
+    ports:
+      - 8008:80
+    build: ./requirements/bonus/adminer
+    image: adminer:0.0
+    pull_policy: never
+    restart: unless-stopped
+    container_name: adminer
     
 volumes:
   mariadb-data:

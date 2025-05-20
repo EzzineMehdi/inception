@@ -7,4 +7,4 @@ echo "pasv_min_port=40000" >> /etc/vsftpd.conf
 echo "pasv_max_port=40005" >> /etc/vsftpd.conf
 
 adduser mehdi
-echo "mehdi:12345679" | chpasswd
+echo "mehdi:123456789" | chpasswd
