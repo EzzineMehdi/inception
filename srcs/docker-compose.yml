@@ -65,6 +65,22 @@ services:
     pull_policy: never
     restart: unless-stopped
     container_name: adminer
+  cadvisor:
+    ports:
+      - 8009:8080
+    build: ./requirements/bonus/cadvisor
+    image: cadvisor:0.0
+    pull_policy: never
+    restart: unless-stopped
+    container_name: cadvisor
+  site:
+    ports:
+      - 8010:81
+    build: ./requirements/bonus/site
+    image: site:0.0
+    pull_policy: never
+    restart: unless-stopped
+    container_name: site
     
 volumes:
   mariadb-data:
