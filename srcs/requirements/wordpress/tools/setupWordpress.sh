@@ -7,20 +7,20 @@ if [ ! -f wp-config.php ]; then
 	--dbname="$MYSQL_DATABASE" \
 	--dbuser="$MYSQL_USER" \
 	--dbpass="$MYSQL_PASSWORD" \
-	--dbhost="mariadb:3306" \
+	--dbhost="$DB_HOST:$DB_HOST_PORT" \
 	--allow-root
 
 	wp core install \
 	--url="http://127.0.0.1:8000/" \
-	--title="Example Site" \
-	--admin_user=$MYSQL_USER \
-	--admin_password=$MYSQL_PASSWORD \
-	--admin_email=admin@example.com \
+	--title="$TITLE" \
+	--admin_user="$ADMIN_USER" \
+	--admin_password="$ADMIN_PASSWORD" \
+	--admin_email=$ADMIN_EMAIL \
 	--skip-email \
 	--allow-root
 
-	wp user create user example@example.com \
-    --user_pass=123456 \
+	wp user create $USER $USER_EMAIL \
+    --user_pass=$USER_PASSWORD \
     --allow-root
 	#bonus
 	wp config  set WP_REDIS_HOST redis --allow-root
@@ -30,7 +30,6 @@ if [ ! -f wp-config.php ]; then
     wp plugin activate redis-cache --allow-root
     wp redis enable --allow-root
 
-	
 fi
 
 # if ! wp user exists user --allow-root; then
