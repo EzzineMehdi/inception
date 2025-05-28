@@ -11,8 +11,5 @@ COPY ./conf/50-server.cnf /etc/mysql/mariadb.conf.d/
 
 COPY ./tools/setupDataBase.sh /root/
 RUN chmod +x /root/setupDataBase.sh
-RUN /root/setupDataBase.sh
 
-RUN rm -rf /root/setupDataBase.sh
-
-CMD [ "mysqld_safe" ]
+CMD [ "/root/setupDataBase.sh" ]
