@@ -14,4 +14,6 @@ RUN chmod +x /root/setupWordpress.sh
 
 RUN sed -ir "s/listen = \/run\/php\/php8.2-fpm.sock/listen = 0.0.0.0:9000/1" /etc/php/8.2/fpm/pool.d/www.conf
 
+RUN wp core download --allow-root
+
 CMD [ "/root/setupWordpress.sh" ]

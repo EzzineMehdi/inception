@@ -38,7 +38,6 @@ services:
     depends_on:
       - wordpress
       - redis
-
     container_name: nginx
   redis:
     build: ./requirements/bonus/redis
@@ -48,39 +47,42 @@ services:
     container_name: redis
   ftp:
     ports:
-      - 8001:21
-      - 8002:20
+      - 21:21
+      - 20:20
+      - 40000-40005:4000-4005
     build: ./requirements/bonus/ftp
     image: ftp:0.0
     pull_policy: never
+    depends_on:
+      - wordpress
     restart: unless-stopped
     container_name: ftp
     volumes:
-      - wordpress-data:/var/html/www/wordpress
-  adminer:
-    ports:
-      - 8008:80
-    build: ./requirements/bonus/adminer
-    image: adminer:0.0
-    pull_policy: never
-    restart: unless-stopped
-    container_name: adminer
-  cadvisor:
-    ports:
-      - 8009:8080
-    build: ./requirements/bonus/cadvisor
-    image: cadvisor:0.0
-    pull_policy: never
-    restart: unless-stopped
-    container_name: cadvisor
-  site:
-    ports:
-      - 8010:81
-    build: ./requirements/bonus/site
-    image: site:0.0
-    pull_policy: never
-    restart: unless-stopped
-    container_name: site
+      - wordpress-data:/home/mehdi
+  # adminer:
+  #   ports:
+  #     - 8008:80
+  #   build: ./requirements/bonus/adminer
+  #   image: adminer:0.0
+  #   pull_policy: never
+  #   restart: unless-stopped
+  #   container_name: adminer
+  # cadvisor:
+  #   ports:
+  #     - 8009:8080
+  #   build: ./requirements/bonus/cadvisor
+  #   image: cadvisor:0.0
+  #   pull_policy: never
+  #   restart: unless-stopped
+  #   container_name: cadvisor
+  # site:
+    # ports:
+    #   - 8010:81
+    # build: ./requirements/bonus/site
+    # image: site:0.0
+    # pull_policy: never
+    # restart: unless-stopped
+    # container_name: site
     
 volumes:
   mariadb-data:

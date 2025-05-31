@@ -5,6 +5,7 @@ echo 'chroot_local_user=YES' >> /etc/vsftpd.conf
 echo "allow_writeable_chroot=YES" >> /etc/vsftpd.conf
 echo "pasv_min_port=40000" >> /etc/vsftpd.conf
 echo "pasv_max_port=40005" >> /etc/vsftpd.conf
+echo "file_open_mode=0777" >> /etc/vsftpd.conf
 
 adduser mehdi
 echo "mehdi:123456789" | chpasswd

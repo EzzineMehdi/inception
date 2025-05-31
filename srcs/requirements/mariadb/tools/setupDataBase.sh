@@ -1,8 +1,10 @@
 #!/bin/bash
 
 if [ ! -f /var/lib/mysql/.initialized ]; then
-service mariadb start
-# Execute SQL commands
+	service mariadb start
+
+    sleep 5
+
 	mariadb << EOF
 	CREATE DATABASE IF NOT EXISTS $MYSQL_DATABASE;
 	CREATE USER IF NOT EXISTS '$MYSQL_USER'@'%' IDENTIFIED BY '$MYSQL_PASSWORD';

@@ -1,8 +1,9 @@
 server {
     listen 443 ssl;
-    server_name 127.0.0.1;  # Change this to your domain
+	listen [::]:443 ssl;
+    server_name mezzine.42.fr;
 
-    root /var/html/www/wordpress;  # Change this if your WordPress files are elsewhere
+    root /var/html/www/wordpress;
     index index.php index.html index.htm;
 
 	ssl_certificate /etc/ssl/certs/nginx-selfsigned.crt;

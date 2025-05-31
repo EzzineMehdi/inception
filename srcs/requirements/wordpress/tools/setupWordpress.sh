@@ -1,7 +1,12 @@
 #!/bin/bash
 # sleep 10
 if [ ! -f wp-config.php ]; then
-	wp core download --allow-root
+
+	# Wait for MariaDB to be ready
+	until mysqladmin ping -h"$DB_HOST" -P"$DB_HOST_PORT" --silent; do
+		echo "Waiting for MariaDB to be ready..."
+		sleep 2
+	done
 
 	wp config create \
 	--dbname="$MYSQL_DATABASE" \
@@ -11,7 +16,7 @@ if [ ! -f wp-config.php ]; then
 	--allow-root
 
 	wp core install \
-	--url="http://127.0.0.1:8000/" \
+	--url="https://127.0.0.1:8000/" \
 	--title="$TITLE" \
 	--admin_user="$ADMIN_USER" \
 	--admin_password="$ADMIN_PASSWORD" \
@@ -31,13 +36,5 @@ if [ ! -f wp-config.php ]; then
     wp redis enable --allow-root
 
 fi
-
-# if ! wp user exists user --allow-root; then
-#   wp user create user example@example.com \
-#     --user_pass=123456 \
-#     --allow-root
-# else
-#   echo "User 'user' already exists; skipping creation."
-# fi
 
 /usr/sbin/php-fpm8.2 -F
