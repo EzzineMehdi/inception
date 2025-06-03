@@ -6,7 +6,6 @@ services:
       - mariadb-data:/var/lib/mysql
     env_file:
       - path: .env
-        required: true
     hostname: mariadb
     restart: unless-stopped
     pull_policy: never
@@ -16,7 +15,6 @@ services:
     image: wordpress:0.0
     env_file:
       - path: .env
-        required: true
     volumes:
       - wordpress-data:/var/html/www/wordpress
     hostname: wordpress
@@ -27,7 +25,7 @@ services:
     container_name: wordpress
   nginx:
     ports:
-      - 8000:443
+      - 443:443
     volumes:
       - wordpress-data:/var/html/www/wordpress
     build: ./requirements/nginx
@@ -49,16 +47,18 @@ services:
     ports:
       - 21:21
       - 20:20
-      - 40000-40005:4000-4005
+      - 4000-4005:4000-4005
     build: ./requirements/bonus/ftp
     image: ftp:0.0
+    env_file:
+      - path: .env
     pull_policy: never
     depends_on:
       - wordpress
     restart: unless-stopped
     container_name: ftp
     volumes:
-      - wordpress-data:/home/mehdi
+      - wordpress-data:/var/www/wordpress
   # adminer:
   #   ports:
   #     - 8008:80
