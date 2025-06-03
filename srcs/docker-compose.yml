@@ -67,14 +67,14 @@ services:
   #   pull_policy: never
   #   restart: unless-stopped
   #   container_name: adminer
-  # cadvisor:
-  #   ports:
-  #     - 8009:8080
-  #   build: ./requirements/bonus/cadvisor
-  #   image: cadvisor:0.0
-  #   pull_policy: never
-  #   restart: unless-stopped
-  #   container_name: cadvisor
+  portainer:
+    ports:
+      - 9000:9000
+    build: ./requirements/bonus/portainer
+    image: portainer:0.0
+    pull_policy: never
+    restart: unless-stopped
+    container_name: portainer
   # site:
     # ports:
     #   - 8010:81

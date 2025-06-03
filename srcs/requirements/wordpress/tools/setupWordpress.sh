@@ -18,7 +18,7 @@ if [ ! -f wp-config.php ]; then
 	--allow-root
 
 	wp core install \
-	--url="https://127.0.0.1:8000/" \
+	--url="$DOMAINE/" \
 	--title="$TITLE" \
 	--admin_user="$ADMIN_USER" \
 	--admin_password="$ADMIN_PASSWORD" \
