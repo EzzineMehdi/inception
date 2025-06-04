@@ -1,5 +1,7 @@
 services:
   mariadb:
+    networks:
+      - docker-network
     build: ./requirements/mariadb
     image: mariadb:0.0
     volumes:
@@ -7,10 +9,12 @@ services:
     env_file:
       - path: .env
     hostname: mariadb
-    restart: unless-stopped
+    restart: always
     pull_policy: never
     container_name: mariadb
   wordpress:
+    networks:
+      - docker-network
     build: ./requirements/wordpress
     image: wordpress:0.0
     env_file:
@@ -18,13 +22,15 @@ services:
     volumes:
       - wordpress:/var/html/www/wordpress
     hostname: wordpress
-    restart: unless-stopped
+    restart: always
     pull_policy: never
     depends_on:
       - mariadb
       - redis
     container_name: wordpress
   nginx:
+    networks:
+      - docker-network
     ports:
       - 443:443
     volumes:
@@ -32,19 +38,23 @@ services:
     build: ./requirements/nginx
     image: nginx:0.0
     hostname: nginx
-    restart: unless-stopped
+    restart: always
     pull_policy: never
     depends_on:
       - wordpress
       - redis
     container_name: nginx
   redis:
+    networks:
+      - docker-network
     build: ./requirements/bonus/redis
     image: redis:0.0
     pull_policy: never
-    restart: unless-stopped
+    restart: always
     container_name: redis
   ftp:
+    networks:
+      - docker-network
     ports:
       - 21:21
       - 20:20
@@ -56,28 +66,32 @@ services:
     pull_policy: never
     depends_on:
       - wordpress
-    restart: unless-stopped
+    restart: always
     container_name: ftp
     volumes:
       - wordpress:/var/html/www/wordpress
   adminer:
+    networks:
+      - docker-network
     ports:
       - 80:80
     build: ./requirements/bonus/adminer
     image: adminer:0.0
     pull_policy: never
-    restart: unless-stopped
+    restart: always
     container_name: adminer
   portainer:
+    networks:
+      - docker-network
     ports:
       - 9000:9000
     build: ./requirements/bonus/portainer
     image: portainer:0.0
     pull_policy: never
-    restart: unless-stopped
+    restart: always
     container_name: portainer
     volumes:
-      - /run/user/1000/podman/podman.sock:/var/run/docker.sock  
+      - /run/user/1000/podman/podman.sock:/var/run/docker.sock
       - portainer:/data
   site:
     ports:
@@ -85,9 +99,13 @@ services:
     build: ./requirements/bonus/site
     image: site:0.0
     pull_policy: never
-    restart: unless-stopped
+    restart: always
     container_name: site
     
+networks:
+    docker-network:
+      driver: bridge
+
 volumes:
   mariadb:
     name : mariadb
