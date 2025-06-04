@@ -3,7 +3,7 @@ services:
     build: ./requirements/mariadb
     image: mariadb:0.0
     volumes:
-      - mariadb-data:/var/lib/mysql
+      - mariadb:/var/lib/mysql
     env_file:
       - path: .env
     hostname: mariadb
@@ -16,7 +16,7 @@ services:
     env_file:
       - path: .env
     volumes:
-      - wordpress-data:/var/html/www/wordpress
+      - wordpress:/var/html/www/wordpress
     hostname: wordpress
     restart: unless-stopped
     pull_policy: never
@@ -27,7 +27,7 @@ services:
     ports:
       - 443:443
     volumes:
-      - wordpress-data:/var/html/www/wordpress
+      - wordpress:/var/html/www/wordpress
     build: ./requirements/nginx
     image: nginx:0.0
     hostname: nginx
@@ -58,7 +58,7 @@ services:
     restart: unless-stopped
     container_name: ftp
     volumes:
-      - wordpress-data:/var/www/wordpress
+      - wordpress:/var/html/www/wordpress
   # adminer:
   #   ports:
   #     - 8008:80
@@ -85,5 +85,17 @@ services:
     # container_name: site
     
 volumes:
-  mariadb-data:
-  wordpress-data:
+  mariadb:
+    name : mariadb
+    driver: local
+    driver_opts:
+      type: 'none'
+      o: 'bind'
+      device: '${HOME}/data/mariadb'
+  wordpress:
+    name: wordpress
+    driver: local
+    driver_opts:
+      type: 'none'
+      o: 'bind'
+      device: '${HOME}/data/wordpress'
