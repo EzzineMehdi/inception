@@ -22,6 +22,7 @@ services:
     pull_policy: never
     depends_on:
       - mariadb
+      - redis
     container_name: wordpress
   nginx:
     ports:
@@ -59,14 +60,14 @@ services:
     container_name: ftp
     volumes:
       - wordpress:/var/html/www/wordpress
-  # adminer:
-  #   ports:
-  #     - 8008:80
-  #   build: ./requirements/bonus/adminer
-  #   image: adminer:0.0
-  #   pull_policy: never
-  #   restart: unless-stopped
-  #   container_name: adminer
+  adminer:
+    ports:
+      - 80:80
+    build: ./requirements/bonus/adminer
+    image: adminer:0.0
+    pull_policy: never
+    restart: unless-stopped
+    container_name: adminer
   portainer:
     ports:
       - 9000:9000
@@ -75,14 +76,17 @@ services:
     pull_policy: never
     restart: unless-stopped
     container_name: portainer
-  # site:
-    # ports:
-    #   - 8010:81
-    # build: ./requirements/bonus/site
-    # image: site:0.0
-    # pull_policy: never
-    # restart: unless-stopped
-    # container_name: site
+    volumes:
+      - /run/user/1000/podman/podman.sock:/var/run/docker.sock  
+      - portainer:/data
+  site:
+    ports:
+      - 81:81
+    build: ./requirements/bonus/site
+    image: site:0.0
+    pull_policy: never
+    restart: unless-stopped
+    container_name: site
     
 volumes:
   mariadb:
@@ -99,3 +103,10 @@ volumes:
       type: 'none'
       o: 'bind'
       device: '${HOME}/data/wordpress'
+  portainer:
+    name: portainer
+    driver: local
+    driver_opts:
+      type: 'none'
+      o: 'bind'
+      device: '${HOME}/data/portainer'
