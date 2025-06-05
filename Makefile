@@ -6,7 +6,7 @@ MDB_VOLUME_DIR = /home/$(USER)/data/mariadb
 PORT_VOLUME_DIR = /home/$(USER)/data/portainer
 
 all: create-volumes
-	docker compose -f ./srcs/docker-compose.yml up --build -d
+	docker compose -f ./srcs/docker-compose.yml up --build
 create-volumes:
 	@if [ ! -d "$(MDB_VOLUME_DIR)" ]; then \
 		mkdir -p $(MDB_VOLUME_DIR); \
